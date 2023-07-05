@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 import '../providers/products.dart';
+import 'package:shop/widgets/app_drawer.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = '/product-detail';
@@ -20,6 +21,28 @@ class ProductDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(loadedProduct.title),
+      ),
+      drawer: AppDrawer(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Image.network(
+                loadedProduct.imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Text(
+              "\$${loadedProduct.price}",
+              style: TextStyle(fontSize: 30.0),
+            ),
+            Text(
+              "${loadedProduct.description}",
+              style: TextStyle(fontSize: 20.0),
+            )
+          ],
+        ),
       ),
     );
   }
