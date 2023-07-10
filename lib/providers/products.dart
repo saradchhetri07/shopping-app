@@ -17,14 +17,14 @@ class Products with ChangeNotifier {
         description: 'A blue shirt.. Its pretty blue',
         price: 39.99,
         imageUrl:
-            'https://cdn.theschoollocker.com.au/media/catalog/product/cache/1/image/500x650/9df78eab33525d08d6e5fb8d27136e95/5/1/51800-red-front_1.jpg'),
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCkIxHq5YVVKP_f8wQ2K4bCiomIqYk_JX5-5jxSoU&s'),
     Product(
         id: 'p3',
         title: 'green Shirt',
         description: 'A green shirt.. Its pretty green',
         price: 49.99,
         imageUrl:
-            'https://cdn.theschoollocker.com.au/media/catalog/product/cache/1/image/500x650/9df78eab33525d08d6e5fb8d27136e95/5/1/51800-red-front_1.jpg')
+            'https://www.craftclothing.ph/cdn/shop/products/winner-plain-round-neck-shirt-ferngreen_58adf8f2-a30b-441c-878d-cffc4a26eb40.png?v=1644205060')
   ];
 
   List<Product> get getItems {
