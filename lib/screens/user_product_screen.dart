@@ -19,7 +19,11 @@ class UserProductScreen extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.add),
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, '/editProduct');
+                },
+                child: Icon(Icons.add)),
           )
         ],
       ),
@@ -30,7 +34,9 @@ class UserProductScreen extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              userProductWidget(productProvider.getItems[i].title,
+              userProductWidget(
+                  productProvider.getItems[i].id,
+                  productProvider.getItems[i].title,
                   productProvider.getItems[i].imageUrl),
               const Divider()
             ],

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:shop/providers/products.dart';
+import "package:provider/provider.dart";
 
 class userProductWidget extends StatefulWidget {
+  final String productId;
   final String productTitle;
   final String imageURL;
 
-  userProductWidget(this.productTitle, this.imageURL);
+  userProductWidget(this.productId, this.productTitle, this.imageURL);
 
   @override
   State<userProductWidget> createState() => _userProductWidgetState();
@@ -23,7 +26,8 @@ class _userProductWidgetState extends State<userProductWidget> {
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           GestureDetector(
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/editProduct');
+              Navigator.pushNamed(context, "/editProduct",
+                  arguments: widget.productId);
             },
             child: Icon(
               Icons.edit,
@@ -31,9 +35,15 @@ class _userProductWidgetState extends State<userProductWidget> {
             ),
           ),
           SizedBox(width: 15.0),
-          Icon(
-            Icons.delete,
-            color: Colors.red,
+          GestureDetector(
+            onTap: () {
+              Provider.of<Products>(context, listen: false)
+                  .removeProduct(widget.productId);
+            },
+            child: Icon(
+              Icons.delete,
+              color: Colors.red,
+            ),
           )
         ]),
       ),

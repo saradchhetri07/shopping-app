@@ -20,6 +20,36 @@ class ProductOverviewScreen extends StatefulWidget {
 enum FavoritesOptions { favorites, all }
 
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
+  var _isinit = true;
+  var _isloading = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    //it runs once so we can retrieve data from database once
+    // Future.delayed(Duration.zero).then((value) {
+    //   Provider.of<Products>(context).fetchAndSetProducts();
+    // });
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    if (_isinit) {
+      // setState(() {
+      //   _isloading = true;
+      // });
+      final response =
+          Provider.of<Products>(context).fetchAndSetProducts().then((value) {
+        setState(() {
+          _isloading = false;
+        });
+      });
+    }
+    _isinit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   var _showOnlyFavorite = false;
   Widget build(BuildContext context) {
@@ -66,7 +96,9 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
         ],
       ),
       drawer: AppDrawer(),
-      body: productGrid(_showOnlyFavorite),
+      body: _isloading
+          ? Center(child: CircularProgressIndicator())
+          : productGrid(_showOnlyFavorite),
     );
   }
 }
