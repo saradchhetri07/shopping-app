@@ -28,7 +28,7 @@ class _productGridState extends State<productGrid> {
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
         value: products[i],
         builder: (context, child) {
-          return ProductItem();
+          return ProductItem(products[i].id);
         },
       ),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

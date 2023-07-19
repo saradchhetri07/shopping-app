@@ -98,12 +98,20 @@ class _EditProductScreenState extends State<EditProductScreen> {
       //check if id of edited product exist
 
       if (_editedProduct.id != '') {
-        productProvider.updateProduct(_editedProduct.id, _editedProduct);
-      } else {
-        setState(() {
-          _isloading = true;
+        await productProvider
+            .updateProduct(_editedProduct.id, _editedProduct)
+            .then((_) {
+          //i dont want to set the circular progress indicator
+          setState(() {
+            _isloading = false;
+          });
+          Navigator.popAndPushNamed(context, "/userProduct");
         });
+      } else {
         try {
+          setState(() {
+            _isloading = true;
+          });
           await productProvider.addProduct(_editedProduct).then((_) {
             setState(() {
               _isloading = false;
@@ -124,10 +132,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           child: Text("ok"))
                     ],
                   ));
-        } finally {
-          setState(() {
-            _isloading = false;
-          });
         }
       }
     } else {
@@ -149,7 +153,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                _saveForm;
+                _saveForm();
               },
               icon: Icon(Icons.save))
         ],

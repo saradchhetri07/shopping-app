@@ -18,6 +18,7 @@ class userProductWidget extends StatefulWidget {
 class _userProductWidgetState extends State<userProductWidget> {
   @override
   Widget build(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
     return ListTile(
       leading: CircleAvatar(backgroundImage: NetworkImage(widget.imageURL)),
       title: Text("${widget.productTitle}"),
@@ -36,9 +37,15 @@ class _userProductWidgetState extends State<userProductWidget> {
           ),
           SizedBox(width: 15.0),
           GestureDetector(
-            onTap: () {
-              Provider.of<Products>(context, listen: false)
-                  .removeProduct(widget.productId);
+            onTap: () async {
+              try {
+                await Provider.of<Products>(context, listen: false)
+                    .removeProduct(widget.productId);
+              } catch (e) {
+                scaffold.showSnackBar(SnackBar(
+                  content: Text('Error deleting!'),
+                ));
+              }
             },
             child: Icon(
               Icons.delete,
